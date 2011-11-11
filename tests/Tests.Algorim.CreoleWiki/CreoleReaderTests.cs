@@ -107,5 +107,15 @@ namespace Tests.Algorim.CreoleWiki
 			Assert.AreEqual("RK \n test \nMARK", actual);
 			Assert.AreEqual(reader.Length - 1, reader.Position);
 		}
+
+		[TestMethod]
+		public void HasPrefix()
+		{
+			var reader = new CreoleReader("123456789");
+
+			var actual = reader.HasPrefix("123", 3);
+
+			Assert.IsTrue(actual);
+		}
 	}
 }

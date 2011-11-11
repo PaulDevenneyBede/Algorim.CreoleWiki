@@ -34,6 +34,14 @@ namespace Algorim.CreoleWiki
 
 		public string Peek(int length)
 		{
+			return Peek(index, length);
+		}
+
+		public string Peek(int index, int length)
+		{
+			if (index < 0 || index >= markup.Length)
+				throw new ArgumentOutOfRangeException("index");
+
 			if (length <= 0)
 				throw new ArgumentOutOfRangeException("length");
 
@@ -118,7 +126,7 @@ namespace Algorim.CreoleWiki
 				if (match.Success && match.Index == index)
 				{
 					var line = trimLines ? match.Groups["line"].Value.Trim() : match.Groups["line"].Value;
-					
+
 					var conditionResult = -1;
 					if ((conditionResult = condition(line)) < 0)
 					{
@@ -187,6 +195,35 @@ namespace Algorim.CreoleWiki
 			}
 		}
 
+		public bool HasPrefix(string prefix, int relativeIndex = 0)
+		{
+			if (prefix == null)
+				throw new ArgumentNullException("prefix");
+			
+			if (prefix == string.Empty)
+				return true;
+
+			var index = this.index + relativeIndex;
+			if (index > Length)
+				throw new ArgumentOutOfRangeException("relativeIndex");
+
+			if (index < prefix.Length)
+				return false;
+
+			for (int i = 0; i < prefix.Length; i++)
+			{ 
+				var markupIndex = index - (prefix.Length - i);
+
+				var prefixChar = prefix[i];
+				var markupChar = markup[markupIndex];
+
+				if (prefixChar != markupChar)
+					return false;
+			}
+
+			return true;
+		}
+
 		public int Position
 		{
 			get { return index; }
@@ -210,6 +247,14 @@ namespace Algorim.CreoleWiki
 					nextWord = PeekWord();
 
 				return nextWord;
+			}
+		}
+
+		public bool IsNewWord
+		{
+			get
+			{
+				return index == 0 || markup[index - 1].ToString().Trim().Length == 0;
 			}
 		}
 	}

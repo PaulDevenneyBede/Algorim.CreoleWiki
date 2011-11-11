@@ -21,15 +21,26 @@ namespace Algorim.CreoleWiki.AST.Inlines
 			writer.AppendRaw("</em>");
 		}
 
+		private static bool HasLinkPrefix(CreoleReader reader, int relativeIndex = 0)
+		{
+			return reader.HasPrefix("http:", relativeIndex) || reader.HasPrefix("https:", relativeIndex) || reader.HasPrefix("ftp:", relativeIndex);
+		}
 		public static EmphasisInline TryParse(CreoleReader reader)
 		{
-			if (reader.Peek(2) != "//")
+			if (reader.Peek(2) != "//" || HasLinkPrefix(reader))
 				return null;
 
-			var index = reader.IndexOf("//", 2);
-			if (index == -1)
-				return null;
+			int index = 0;
+			while (true)
+			{
+				index = reader.IndexOf("//", index + 2);
+				if (index == -1)
+					return null;
 
+				if (!HasLinkPrefix(reader, index))
+					break;
+			}
+			
 			reader.Skip(2);
 			var content = reader.Read(index - 2);
 			reader.Skip(2);

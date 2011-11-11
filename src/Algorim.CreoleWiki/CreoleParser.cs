@@ -33,6 +33,10 @@ namespace Algorim.CreoleWiki
 
 		public string ParseInlines(string markup)
 		{
+			return ParseInlines(markup, new Func<CreoleReader, CreoleElement>[0]);
+		}
+		internal string ParseInlines(string markup, params Func<CreoleReader, CreoleElement>[] ignore)
+		{
 			var elements = new List<InlineElement>();
 
 			// parse markup
@@ -45,6 +49,9 @@ namespace Algorim.CreoleWiki
 
 				foreach (var inlineParser in InlineElements)
 				{
+					if (ignore.Contains(inlineParser))
+						continue;
+
 					inline = inlineParser(reader);
 					if (inline == null)
 						continue;
@@ -80,6 +87,10 @@ namespace Algorim.CreoleWiki
 
 		public string Parse(string markup)
 		{
+			return Parse(markup, new Func<CreoleReader, CreoleElement>[0]);
+		}
+		internal string Parse(string markup, params Func<CreoleReader, CreoleElement>[] ignore)
+		{
 			var elements = new List<BlockElement>();
 
 			// parse markup
@@ -92,6 +103,9 @@ namespace Algorim.CreoleWiki
 
 				foreach (var blockParser in BlockElements)
 				{
+					if (ignore.Contains(blockParser))
+						continue;
+
 					block = blockParser(reader);
 					if (block == null)
 						continue;

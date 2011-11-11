@@ -59,6 +59,26 @@ still paragraph 2</p>
 		}
 
 		[TestMethod]
+		public void Parse_EmphasisLink()
+		{
+			var parser = new CreoleParser();
+
+			var actual = parser.Parse(@"//test [[http://www.google.com]] test//");
+			
+			Assert.AreEqual(@"<p><em>test <a href=""http://www.google.com"" target=""_blank"">http://www.google.com</a> test</em></p>", actual);
+		}
+
+		[TestMethod]
+		public void Parse_EmphasisUrls()
+		{
+			var parser = new CreoleParser();
+
+			var actual = parser.Parse(@"Creole1.0 specifies that http://bar and ftp://bar should not render italic, something like foo://bar should render as italic.");
+
+			Assert.AreEqual(@"<p>Creole1.0 specifies that http://bar and ftp://bar should not render italic, something like foo://bar should render as italic.</p>", actual);
+		}
+
+		[TestMethod]
 		public void Parse_LineBreak()
 		{
 			var parser = new CreoleParser();
@@ -189,6 +209,20 @@ second paragraph
 			var actual = parser.Parse("[[http://www.google.com|Uncle google]]");
 
 			Assert.AreEqual(@"<p><a href=""http://www.google.com"" target=""_blank"">Uncle google</a></p>", actual);
+		}
+
+		[TestMethod]
+		public void Parse_Link_Free()
+		{
+			var parser = new CreoleParser();
+
+			var actual = parser.Parse("http://www.google.com");
+
+			Assert.AreEqual(@"<p><a href=""http://www.google.com"" target=""_blank"">http://www.google.com</a></p>", actual);
+
+			actual = parser.Parse("http:/www.google.com");
+
+			Assert.AreEqual(@"<p>http:/www.google.com</p>", actual);
 		}
 
 		[TestMethod]
