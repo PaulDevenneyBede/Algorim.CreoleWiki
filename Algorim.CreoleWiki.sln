@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorim.CreoleWiki", "src\Algorim.CreoleWiki\Algorim.CreoleWiki.csproj", "{AB196503-88EB-4256-9215-8A8F45847EDA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{55C9A842-9B07-45BA-ACFD-903952185CD7}"
+	ProjectSection(SolutionItems) = preProject
+		Algorim.CreoleWiki.vsmdi = Algorim.CreoleWiki.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Algorim.CreoleWiki", "tests\Tests.Algorim.CreoleWiki\Tests.Algorim.CreoleWiki.csproj", "{1764A3C0-0FF5-4F54-8279-E2A0033186DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorim.CreoleWikiDemo", "src\Algorim.CreoleWikiDemo\Algorim.CreoleWikiDemo.csproj", "{49AD98B6-6E74-4723-AB9B-600D351A27EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB196503-88EB-4256-9215-8A8F45847EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB196503-88EB-4256-9215-8A8F45847EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB196503-88EB-4256-9215-8A8F45847EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB196503-88EB-4256-9215-8A8F45847EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1764A3C0-0FF5-4F54-8279-E2A0033186DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1764A3C0-0FF5-4F54-8279-E2A0033186DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1764A3C0-0FF5-4F54-8279-E2A0033186DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1764A3C0-0FF5-4F54-8279-E2A0033186DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49AD98B6-6E74-4723-AB9B-600D351A27EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49AD98B6-6E74-4723-AB9B-600D351A27EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49AD98B6-6E74-4723-AB9B-600D351A27EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49AD98B6-6E74-4723-AB9B-600D351A27EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1764A3C0-0FF5-4F54-8279-E2A0033186DD} = {55C9A842-9B07-45BA-ACFD-903952185CD7}
+	EndGlobalSection
+EndGlobal

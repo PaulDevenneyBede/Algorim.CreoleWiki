@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/Algorim/Algorim.CreoleWiki</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Library for translating creole wiki markup into html.</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright Algorim 2011</copyright>
+    <tags>Creole Wiki Parser</tags>
+  </metadata>
+</package>

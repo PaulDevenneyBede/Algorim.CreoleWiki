@@ -1,0 +1,32 @@
+﻿@model HomeModel
+@section Head
+{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            var markup = $("#editor-markup")[0];
+            var process = $("#editor-process")[0];
+            var results = $("#editor-results")[0];
+
+            $(process).click(function (event) {
+                event.preventDefault();
+
+                $(results)
+                    .html("<div class=\"editor-results-loading\">Loading...</div>");
+
+                $.post("@Url.Action("Wiki", "Api")", { markup: $(markup).val() })
+                    .success(function(html) { $(results).html(html); })
+                    .error(function(xhr) { $(results).html("<div class=\"editor-results-error\">" + xhr.status + ": " + xhr.statusText) + "</div>"; });
+            });
+        });
+    </script>
+}
+
+<div class="editor">
+    <textarea id="editor-markup" class="editor-markup">@Model.Markup</textarea>
+
+    <a id="editor-process" class="editor-button" href="#">Process</a>
+
+    <div id="editor-results" class="editor-results">
+        @Html.Raw(Model.Wiki)
+    </div>
+</div>
