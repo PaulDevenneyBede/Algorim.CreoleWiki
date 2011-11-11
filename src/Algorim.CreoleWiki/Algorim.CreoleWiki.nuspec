@@ -8,7 +8,8 @@
     <owners>$author$</owners>
     <projectUrl>https://github.com/Algorim/Algorim.CreoleWiki</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Library for translating creole wiki markup into html.</description>
+		<summary>Library for translating Creole 1.0 wiki markup into html.</summary>
+    <description>Library for translating Creole 1.0 wiki markup into html. Note that this library is still under development and doesn't support complete Creole 1.0 markup. Feel free to contribute at https://github.com/Algorim/Algorim.CreoleWiki. </description>
     <releaseNotes>Initial release</releaseNotes>
     <copyright>Copyright Algorim 2011</copyright>
     <tags>Creole Wiki Parser</tags>

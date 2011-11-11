@@ -366,5 +366,82 @@ second paragraph
     </tr>
 </table>", actual);
 		}
+
+		[TestMethod]
+		public void Parse_Table_WithHeader()
+		{
+			var parser = new CreoleParser();
+
+			var actual = parser.Parse(@"|= Header 1 |= Header 2
+|cell 1|**bold cell 2**
+| cell 1 row 2 | cell 2 row 2 | //cell 3 row 2//");
+
+			Assert.AreEqual(@"<table>
+    <thead>
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+    <thead>
+    <tr>
+        <td>cell 1</td>
+        <td><strong>bold cell 2</strong></td>
+    </tr>
+    <tr>
+        <td>cell 1 row 2</td>
+        <td>cell 2 row 2</td>
+        <td><em>cell 3 row 2</em></td>
+    </tr>
+</table>", actual);
+		}
+
+		[TestMethod]
+		public void Parse_Table_WithHeader_WithEndings()
+		{
+			var parser = new CreoleParser();
+
+			var actual = parser.Parse(@"|= Header 1 |= Header 2 |
+|cell 1|**bold cell 2**|
+| cell 1 row 2 | cell 2 row 2 | //cell 3 row 2//");
+
+			Assert.AreEqual(@"<table>
+    <thead>
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+    <thead>
+    <tr>
+        <td>cell 1</td>
+        <td><strong>bold cell 2</strong></td>
+    </tr>
+    <tr>
+        <td>cell 1 row 2</td>
+        <td>cell 2 row 2</td>
+        <td><em>cell 3 row 2</em></td>
+    </tr>
+</table>", actual);
+		}
+
+		[TestMethod]
+		public void Parse_Table_WithEmptyCell()
+		{
+			var parser = new CreoleParser();
+
+			var actual = parser.Parse(@"|cell 1|**bold cell 2**
+|  | cell 2 row 2 | //cell 3 row 2//");
+
+			Assert.AreEqual(@"<table>
+    <tr>
+        <td>cell 1</td>
+        <td><strong>bold cell 2</strong></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>cell 2 row 2</td>
+        <td><em>cell 3 row 2</em></td>
+    </tr>
+</table>", actual);
+		}
 	}
 }

@@ -58,12 +58,15 @@ namespace Algorim.CreoleWiki.AST.Blocks
 			List<string[]> rows = new List<string[]>();
 			while (!reader.EndOfMarkup)
 			{
-				var line = reader.PeekLine();
+				var line = reader.PeekLine().TrimEnd();
 
 				if (!line.StartsWith("|"))
 					break;
 
-				var split = line.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+				var split = line.Substring(1).Split(new char[] { '|' }, StringSplitOptions.None);
+				if (string.IsNullOrEmpty(split.Last().Trim()))
+					split = split.Take(split.Count() - 1).ToArray();
+
 				if (isFirstLine && !split.Any(p => !p.StartsWith("=")))
 					headers = split.Select(p => p.Substring(1)).ToArray();
 				else
