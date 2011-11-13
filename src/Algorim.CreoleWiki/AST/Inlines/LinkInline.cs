@@ -25,9 +25,11 @@ namespace Algorim.CreoleWiki.AST.Inlines
 
 		public override void Render(CreoleParser parser, CreoleWriter writer)
 		{
-			var isExternal = url.StartsWith("http://") || url.StartsWith("https://");
+			var resolvedUrl = parser.ResolveLink(url);
 
-			writer.AppendRaw("<a href=\"{0}\"{1}>", HttpUtility.UrlPathEncode(url), isExternal ? " target=\"_blank\"" : string.Empty);
+			var isExternal = resolvedUrl.StartsWith("http://") || resolvedUrl.StartsWith("https://") || resolvedUrl.StartsWith("ftp://");
+
+			writer.AppendRaw("<a href=\"{0}\"{1}>", HttpUtility.UrlPathEncode(resolvedUrl), isExternal ? " target=\"_blank\"" : string.Empty);
 			if (parseContent)
 				writer.AppendRaw(parser.ParseInlines(content, TryParse));
 			else

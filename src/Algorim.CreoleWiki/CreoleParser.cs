@@ -31,6 +31,9 @@ namespace Algorim.CreoleWiki
 		public List<Func<CreoleReader, BlockElement>> BlockElements { get; private set; }
 		public List<Func<CreoleReader, InlineElement>> InlineElements { get; private set; }
 
+		public Func<string, string> LinkResolver { get; set; }
+		public Func<string, string> ImageResolver { get; set; }
+
 		public string ParseInlines(string markup)
 		{
 			return ParseInlines(markup, new Func<CreoleReader, CreoleElement>[0]);
@@ -137,6 +140,21 @@ namespace Algorim.CreoleWiki
 			}
 
 			return writer.ToString().Replace("\n", Environment.NewLine).Trim();
+		}
+
+		internal string ResolveLink(string link)
+		{
+			if (LinkResolver != null)
+				return LinkResolver(link);
+
+			return link;
+		}
+		internal string ResolveImage(string image)
+		{
+			if (ImageResolver != null)
+				return ImageResolver(image);
+
+			return image;
 		}
 	}
 }

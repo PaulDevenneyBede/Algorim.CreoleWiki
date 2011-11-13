@@ -443,5 +443,29 @@ second paragraph
     </tr>
 </table>", actual);
 		}
+
+		[TestMethod]
+		public void Parse_ResolveLink()
+		{
+			var parser = new CreoleParser();
+
+			parser.LinkResolver = l => "/test/" + l.Replace(" ", "-");
+
+			var actual = parser.Parse(@"[[mighty link]]");
+
+			Assert.AreEqual(@"<p><a href=""/test/mighty-link"">mighty link</a></p>", actual);
+		}
+
+		[TestMethod]
+		public void Parse_ResolveImage()
+		{
+			var parser = new CreoleParser();
+
+			parser.ImageResolver = l => "/images/" + l.Replace(" ", "-");
+
+			var actual = parser.Parse(@"{{mighty image}}");
+
+			Assert.AreEqual(@"<p><img src=""/images/mighty-image"" alt="""" /></p>", actual);
+		}
 	}
 }

@@ -19,7 +19,9 @@ namespace Algorim.CreoleWiki.AST.Inlines
 
 		public override void Render(CreoleParser parser, CreoleWriter writer)
 		{
-			writer.AppendRaw(@"<img src=""{0}"" alt=""{1}"" />", HttpUtility.UrlPathEncode(url), HttpUtility.HtmlEncode(alt));
+			var resolvedUrl = parser.ResolveImage(url);
+
+			writer.AppendRaw(@"<img src=""{0}"" alt=""{1}"" />", HttpUtility.UrlPathEncode(resolvedUrl), HttpUtility.HtmlEncode(alt));
 		}
 
 		public static ImageInline TryParse(CreoleReader reader)
