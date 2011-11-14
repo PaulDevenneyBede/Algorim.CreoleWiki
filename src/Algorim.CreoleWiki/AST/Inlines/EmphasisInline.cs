@@ -16,6 +16,9 @@ namespace Algorim.CreoleWiki.AST.Inlines
 
 		public override void Render(CreoleParser parser, CreoleWriter writer)
 		{
+			if (string.IsNullOrEmpty(content))
+				return;
+
 			writer.AppendRaw("<em>");
 			writer.AppendRaw(parser.ParseInlines(content));
 			writer.AppendRaw("</em>");
@@ -35,15 +38,23 @@ namespace Algorim.CreoleWiki.AST.Inlines
 			{
 				index = reader.IndexOf("//", index + 2);
 				if (index == -1)
-					return null;
+					break;
 
 				if (!HasLinkPrefix(reader, index))
 					break;
 			}
 			
 			reader.Skip(2);
-			var content = reader.Read(index - 2);
-			reader.Skip(2);
+			string content;
+			if (index != -1)
+			{
+				content = reader.Read(index - 2);
+				reader.Skip(2);
+			}
+			else
+			{
+				content = reader.ReadToEnd();
+			}
 
 			return new EmphasisInline(content);
 		}

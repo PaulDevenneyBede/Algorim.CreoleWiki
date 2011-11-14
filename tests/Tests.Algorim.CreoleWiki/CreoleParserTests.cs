@@ -33,9 +33,9 @@ still paragraph 2</p>
 		{
 			var parser = new CreoleParser();
 
-			var actual = parser.Parse(@"not strong **strong ** **not strong");
+			var actual = parser.Parse(@"not strong **strong ** not strong **strong");
 
-			Assert.AreEqual(@"<p>not strong <strong>strong </strong> **not strong</p>", actual);
+			Assert.AreEqual(@"<p>not strong <strong>strong </strong> not strong <strong>strong</strong></p>", actual);
 		}
 
 		[TestMethod]
@@ -43,9 +43,9 @@ still paragraph 2</p>
 		{
 			var parser = new CreoleParser();
 
-			var actual = parser.Parse(@"not em //em // //not em");
+			var actual = parser.Parse(@"not em //em // not em //em");
 
-			Assert.AreEqual(@"<p>not em <em>em </em> //not em</p>", actual);
+			Assert.AreEqual(@"<p>not em <em>em </em> not em <em>em</em></p>", actual);
 		}
 
 		[TestMethod]
@@ -53,9 +53,9 @@ still paragraph 2</p>
 		{
 			var parser = new CreoleParser();
 
-			var actual = parser.Parse(@"not strong **//strong em//** **//strong**//");
+			var actual = parser.Parse(@"not strong **//strong em//** not strong not em **//strong em**// just em");
 
-			Assert.AreEqual(@"<p>not strong <strong><em>strong em</em></strong> <strong>//strong</strong>//</p>", actual);
+			Assert.AreEqual(@"<p>not strong <strong><em>strong em</em></strong> not strong not em <strong><em>strong em</em></strong><em> just em</em></p>", actual);
 		}
 
 		[TestMethod]
@@ -75,7 +75,7 @@ still paragraph 2</p>
 
 			var actual = parser.Parse(@"Creole1.0 specifies that http://bar and ftp://bar should not render italic, something like foo://bar should render as italic.");
 
-			Assert.AreEqual(@"<p>Creole1.0 specifies that http://bar and ftp://bar should not render italic, something like foo://bar should render as italic.</p>", actual);
+			Assert.AreEqual(@"<p>Creole1.0 specifies that http://bar and ftp://bar should not render italic, something like foo:<em>bar should render as italic.</em></p>", actual);
 		}
 
 		[TestMethod]
@@ -331,9 +331,9 @@ second paragraph
     </li>
 </ol>
 <ul>
-    <li>#*** list 1
+    <li>#<strong>* list 1</strong>
         <ul>
-            <li>** list 2</li>
+            <li><strong> list 2</strong></li>
             <li>list 2</li>
         </ul>
         <ol>
